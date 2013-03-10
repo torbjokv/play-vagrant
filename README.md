@@ -51,3 +51,6 @@ Le voilà!
 
 Vagrant have good dokumentation at http://docs-v1.vagrantup.com/v1/docs/index.html
 
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/torbjokv/play-vagrant/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
