@@ -1,6 +1,6 @@
 #Play framework and Vagrant
 
-Vagrant config with Play Framework and mysql server. When depluyed, the vagrant and project folders is seperated so that the version control can be seperate. When completed, the folder structure will look like this: 
+Vagrant config with Play Framework and mysql server. When deployed, the vagrant and project folders is seperated so that the version control can be seperate. When completed, the folder structure will look like this: 
 - somecoolstuff/
   - project/
       - frameworks/
@@ -16,7 +16,7 @@ Vagrant config with Play Framework and mysql server. When depluyed, the vagrant 
 - Vagrant http://www.vagrantup.com/
 - Some console knowledge :-)
 
-##Installl
+##Install
 
     vagrant box add precise32 http://files.vagrantup.com/precise32.box
     mkdir somecoolstuff && cd somecoolstuff
