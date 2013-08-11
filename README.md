@@ -53,4 +53,4 @@ Vagrant have good dokumentation at http://docs-v1.vagrantup.com/v1/docs/index.ht
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/torbjokv/play-vagrant/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f118040f0d6c51d3d575e3537f2ddddc "githalytics.com")](http://githalytics.com/torbjokv/play-vagrant)
