@@ -1,0 +1,86 @@
+---
+- hosts: all
+  sudo: yes
+  vars: 
+    mysql_root_password: PLEASE_CHANGE_ME
+    mysql_project_database: playproject
+    mysql_project_user: playproject
+    mysql_project_password: PLEASE_CHANGE_ME
+    play_version: 2.1.3
+    example_project: /home/vagrant/frameworks/play-$play_version/samples/java/zentasks
+    env_paths:
+      - /home/vagrant/frameworks/play-$play_version
+  tasks:
+    - name: Update apt cache
+      apt: update_cache=yes
+
+    - name: Install MySQL
+      apt: pkg=$item state=latest
+      with_items:
+        - python-mysqldb
+        - mysql-client
+        - mysql-server
+
+    - name: Start the MySQL service
+      service: name=mysql state=started
+
+    - name: Add project user
+      mysql_user: name=$mysql_project_user password=$mysql_project_password priv=*.*:ALL check_implicit_admin=yes
+
+    # 'localhost' needs to be the last item for idempotency, see
+    # http://ansible.cc/docs/modules.html#mysql-user
+    - name: update mysql root password for all root accounts
+      mysql_user: name=root host=$item password=$mysql_root_password priv=*.*:ALL check_implicit_admin=yes
+      with_items:
+        - $ansible_hostname
+        - 127.0.0.1
+        - ::1
+        - localhost
+
+    - name: copy .my.cnf file with root password credentials to root folder
+      template: src=templates/my.cnf.j2 dest=/root/.my.cnf owner=root mode=0600
+      notify:
+       - restart mysql 
+
+    - name: copy .my.cnf file with root password credentials to vagrant folder
+      template: src=templates/my.cnf.j2 dest=/home/vagrant/.my.cnf owner=vagrant mode=0600
+      notify:
+       - restart mysql 
+
+    - name: delete anonymous MySQL server user for localhost
+      mysql_user: name="" state="absent"
+
+    - name: Remove test database
+      mysql_db: name=test state=absent
+
+    - name: Add project database
+      mysql_db: name=$mysql_project_database state=present
+
+    - name: ensure java is at the latest version
+      apt: pkg=openjdk-7-jdk state=latest
+
+    - name: ensure unzip is at the latest version
+      apt: pkg=unzip state=latest
+
+    - name: Download play framework
+      get_url: url=http://downloads.typesafe.com/play/$play_version/play-$play_version.zip dest=/home/vagrant/frameworks/play-$play_version.zip
+
+    - name: Unzip play framework
+      raw: "if [ ! -d '/home/vagrant/frameworks/play-$play_version' ]; then unzip -q /home/vagrant/frameworks/play-$play_version.zip -d /home/vagrant/frameworks ; fi;"
+
+    - name: Update .bashrc with paths
+      template: src=templates/bashrc.j2 dest=/home/vagrant/.bashrc owner=vagrant mode=0644
+
+    - name: ensure vim is at the latest version
+      apt: pkg=vim state=latest
+
+    - name: ensure git is at the latest version
+      apt: pkg=git state=latest
+
+    - name: Copy example code
+      raw: "if [ `ls /home/vagrant/project | wc -l` -le 3 ]; then cp -r $example_project/. /home/vagrant/project ; fi;"
+      when: example_project is defined
+
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted
