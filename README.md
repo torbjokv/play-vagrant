@@ -35,7 +35,7 @@ Le voilà!
 
 ##Tips and tricks
 
-- If the filesystem is slow, uncomment ", :nfs => true" in the Vagrantfile, reboot the VM ("vagrant halt; vagrant up") and enter your root password. This trick only works on linux and os x.
+- If the filesystem is slow, set NETWORK_FILE_SYSTEM to true in the Vagrantfile, reboot the VM ("vagrant halt; vagrant up") and enter your root password.
 
 ##Problems?
 
