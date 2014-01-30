@@ -19,7 +19,7 @@ A simple Vagrant config with Play Framework, Ansible and MySQL server that gets 
 - GIT, Java, ... the basic stuff
 - VirtualBox https://www.virtualbox.org/
 - Vagrant http://www.vagrantup.com/  (ATOW version 1.4.3)
-- Ansible http://www.ansibleworks.com/docs/gettingstarted.html (ATOW version 1.5)
+- Ansible http://docs.ansible.com/ (ATOW version 1.5)
 - Some console knowledge :-)
 
 ##Getting Started
