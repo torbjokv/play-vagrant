@@ -16,6 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "frameworks", "/home/vagrant/frameworks", :nfs => NETWORK_FILE_SYSTEM
   
   config.vm.provision :ansible do |ansible| 
+    ansible.limit = 'all'
     ansible.playbook = "provisioning/playbook.yml"
     ansible.inventory_path = "provisioning/ansible_hosts"
   end
