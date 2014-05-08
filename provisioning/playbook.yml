@@ -6,7 +6,7 @@
     mysql_project_database: playproject
     mysql_project_user: playproject
     mysql_project_password: PLEASE_CHANGE_ME
-    play_version: 2.2.1
+    play_version: 2.2.3
     example_project: "/home/vagrant/frameworks/play-{{ play_version }}/samples/java/zentasks"
     env_paths:
       - "/home/vagrant/frameworks/play-{{ play_version }}"
