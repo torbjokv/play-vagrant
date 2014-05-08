@@ -3,7 +3,7 @@
 A simple Vagrant config with Play Framework, Ansible and MySQL server that gets you started quickly with a working example. When deployed, the folder structure will look like this: 
 - yourrepo/
   - frameworks/
-      - play-2.2.1/
+      - play-2.2.3/
   - project/
       - example_project
   - provision/
